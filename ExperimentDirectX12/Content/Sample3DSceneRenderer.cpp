@@ -304,7 +304,7 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 			// Rotate the cube a small amount.
 			//m_angle += static_cast<float>(timer.GetElapsedSeconds()) * m_radiansPerSecond;
 
-			field.UpdateParticlePosition();
+			field.UpdateWirePointState();
 
 			//Rotate(m_angle);
 			VertexPositionColor instanceData[] =
