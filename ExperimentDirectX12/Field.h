@@ -33,18 +33,18 @@ Field::Field()
 	wirePointList = new WirePoint[DEFAULT_NUMBER_OF_WIREPOINTS]();
 	
 	// Add wirePoints
-	AddWirePoint(wirePointList[0].yCoordinate = coordinateToFieldIndex(0), 
-		wirePointList[0].xCoordinate = coordinateToFieldIndex(-2));
-	AddWirePoint(wirePointList[1].yCoordinate = coordinateToFieldIndex(0), 
-		wirePointList[1].xCoordinate = coordinateToFieldIndex(0));
-	AddWirePoint(wirePointList[2].yCoordinate = coordinateToFieldIndex(0), 
-		wirePointList[2].xCoordinate = coordinateToFieldIndex(2));
-	AddWirePoint(wirePointList[3].yCoordinate = coordinateToFieldIndex(2),
-		wirePointList[3].xCoordinate = coordinateToFieldIndex(-2));
-	AddWirePoint(wirePointList[4].yCoordinate = coordinateToFieldIndex(2),
-		wirePointList[4].xCoordinate = coordinateToFieldIndex(0));
-	AddWirePoint(wirePointList[5].yCoordinate = coordinateToFieldIndex(2),
-		wirePointList[5].xCoordinate = coordinateToFieldIndex(2));
+	wirePointList[0].yCoordinate = coordinateToFieldIndex(0), 
+		wirePointList[0].xCoordinate = coordinateToFieldIndex(-2);
+	wirePointList[1].yCoordinate = coordinateToFieldIndex(0), 
+		wirePointList[1].xCoordinate = coordinateToFieldIndex(0);
+	wirePointList[2].yCoordinate = coordinateToFieldIndex(0), 
+		wirePointList[2].xCoordinate = coordinateToFieldIndex(2);
+	wirePointList[3].yCoordinate = coordinateToFieldIndex(2),
+		wirePointList[3].xCoordinate = coordinateToFieldIndex(-2);
+	wirePointList[4].yCoordinate = coordinateToFieldIndex(2),
+		wirePointList[4].xCoordinate = coordinateToFieldIndex(0);
+	wirePointList[5].yCoordinate = coordinateToFieldIndex(2),
+		wirePointList[5].xCoordinate = coordinateToFieldIndex(2);
 }
 
 Field::~Field()
@@ -56,37 +56,18 @@ Field::~Field()
 inline void Field::AddWirePoint(int yCoordinate, int xCoordinate)
 {
 	//convert coordinate value to index value
-	field[yCoordinate + 1][xCoordinate - 1] += 1;
-	field[yCoordinate + 1][xCoordinate] += 1;
-	field[yCoordinate + 1][xCoordinate + 1] += 1;
-
-	field[yCoordinate][xCoordinate - 1] += 1;
-	field[yCoordinate][xCoordinate] += 1;
-	field[yCoordinate][xCoordinate + 1] += 1;
-
-	field[yCoordinate - 1][xCoordinate - 1] += 1;
-	field[yCoordinate - 1][xCoordinate] += 1;
-	field[yCoordinate - 1][xCoordinate + 1] += 1;
 }
 
 inline void Field::RemoveWirePoint(int yCoordinate, int xCoordinate)
 {
-	field[yCoordinate + 1][xCoordinate - 1] -= 1;
-	field[yCoordinate + 1][xCoordinate] -= 1;
-	field[yCoordinate + 1][xCoordinate + 1] -= 1;
-
-	field[yCoordinate][xCoordinate - 1] -= 1;
-	field[yCoordinate][xCoordinate] -= 1;
-	field[yCoordinate][xCoordinate + 1] -= 1;
-
-	field[yCoordinate - 1][xCoordinate - 1] -= 1;
-	field[yCoordinate - 1][xCoordinate] -= 1;
-	field[yCoordinate - 1][xCoordinate + 1] -= 1;
 }
 
 inline void Field::UpdateWirePointState()
 {
+	for (size_t i = 0; i < DEFAULT_NUMBER_OF_WIREPOINTS; ++i)
+	{
 
+	}
 }
 
 //	Convert from index to coordinate
