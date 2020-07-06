@@ -66,7 +66,15 @@ inline void Field::UpdateWirePointState()
 {
 	for (size_t i = 0; i < DEFAULT_NUMBER_OF_WIREPOINTS; ++i)
 	{
-
+		field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate - 1] +
+			field[wirePointList[i].yCoordinate - 1][wirePointList[i].xCoordinate + 1] +
+			field[wirePointList[i].yCoordinate - 1][wirePointList[i].xCoordinate - 1] +
+			field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate + 1] + 
+			field[wirePointList[i].yCoordinate][wirePointList[i].xCoordinate - 1] + 
+			field[wirePointList[i].yCoordinate][wirePointList[i].xCoordinate + 1] + 
+			field[wirePointList[i].yCoordinate - 1][wirePointList[i].xCoordinate] + 
+			field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate] + 
+			field[wirePointList[i].yCoordinate][wirePointList[i].xCoordinate];
 	}
 }
 
