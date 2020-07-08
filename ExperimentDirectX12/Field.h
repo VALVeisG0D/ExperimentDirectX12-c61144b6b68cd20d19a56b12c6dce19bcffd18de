@@ -20,6 +20,7 @@ public:
 
 	void AddWirePoint(int, int);
 	void RemoveWirePoint(int, int);
+	void ResetWirePoint(int);
 	void UpdateWirePointState();
 	float xFieldIndexToCoordinate(int);
 	float yFieldIndexToCoordinate(int);
@@ -62,11 +63,41 @@ inline void Field::RemoveWirePoint(int yCoordinate, int xCoordinate)
 {
 }
 
+inline void Field::ResetWirePoint(int wirePointListIndex)
+{
+	field[wirePointList[wirePointListIndex].yCoordinate + 1][wirePointList[wirePointListIndex].xCoordinate - 1] =
+		field[wirePointList[wirePointListIndex].yCoordinate - 1][wirePointList[wirePointListIndex].xCoordinate + 1] =
+		field[wirePointList[wirePointListIndex].yCoordinate - 1][wirePointList[wirePointListIndex].xCoordinate - 1] =
+		field[wirePointList[wirePointListIndex].yCoordinate + 1][wirePointList[wirePointListIndex].xCoordinate + 1] =
+		field[wirePointList[wirePointListIndex].yCoordinate][wirePointList[wirePointListIndex].xCoordinate - 1] =
+		field[wirePointList[wirePointListIndex].yCoordinate][wirePointList[wirePointListIndex].xCoordinate + 1] =
+		field[wirePointList[wirePointListIndex].yCoordinate - 1][wirePointList[wirePointListIndex].xCoordinate] =
+		field[wirePointList[wirePointListIndex].yCoordinate + 1][wirePointList[wirePointListIndex].xCoordinate] =
+		field[wirePointList[wirePointListIndex].yCoordinate][wirePointList[wirePointListIndex].xCoordinate] = 0;
+}
+
 inline void Field::UpdateWirePointState()
 {
+
+	for (size_t i = 0; i < DEFAULT_NUMBER_OF_WIREPOINTS; ++i)
+		ResetWirePoint(i);
+
+	//ran into insurmountable obstacle
+	//have to operate serially. problem with reset is that it doesn't work with serially, have to start completely over
+	//
 	for (size_t i = 0; i < DEFAULT_NUMBER_OF_WIREPOINTS; ++i)
 	{
-		field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate - 1] +
+		field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate - 1] =
+			field[wirePointList[i].yCoordinate - 1][wirePointList[i].xCoordinate + 1] =
+			field[wirePointList[i].yCoordinate - 1][wirePointList[i].xCoordinate - 1] =
+			field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate + 1] =
+			field[wirePointList[i].yCoordinate][wirePointList[i].xCoordinate - 1] =
+			field[wirePointList[i].yCoordinate][wirePointList[i].xCoordinate + 1] =
+			field[wirePointList[i].yCoordinate - 1][wirePointList[i].xCoordinate] =
+			field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate] =
+			field[wirePointList[i].yCoordinate][wirePointList[i].xCoordinate] = 
+			
+			((field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate - 1] +
 			field[wirePointList[i].yCoordinate - 1][wirePointList[i].xCoordinate + 1] +
 			field[wirePointList[i].yCoordinate - 1][wirePointList[i].xCoordinate - 1] +
 			field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate + 1] + 
@@ -74,7 +105,7 @@ inline void Field::UpdateWirePointState()
 			field[wirePointList[i].yCoordinate][wirePointList[i].xCoordinate + 1] + 
 			field[wirePointList[i].yCoordinate - 1][wirePointList[i].xCoordinate] + 
 			field[wirePointList[i].yCoordinate + 1][wirePointList[i].xCoordinate] + 
-			field[wirePointList[i].yCoordinate][wirePointList[i].xCoordinate];
+			field[wirePointList[i].yCoordinate][wirePointList[i].xCoordinate]) > 1);
 	}
 }
 
