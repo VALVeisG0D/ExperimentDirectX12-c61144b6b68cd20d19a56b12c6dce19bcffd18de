@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include "Sample3DSceneRenderer.h"
-#include "Field.h"
+#include "Universe.h"
 
 #include "..\Common\DirectXHelper.h"
 #include <ppltasks.h>
@@ -18,7 +18,7 @@ using namespace Windows::Storage;
 Platform::String^ AngleKey = "Angle";
 Platform::String^ TrackingKey = "Tracking";
 
-Field field;
+Universe field;
 
 // Loads vertex and pixel shaders from files and instantiates the cube geometry.
 Sample3DSceneRenderer::Sample3DSceneRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) :

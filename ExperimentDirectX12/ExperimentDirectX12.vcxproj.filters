@@ -72,7 +72,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="ExperimentDirectX12Main.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Field.h">
+    <ClInclude Include="Universe.h">
       <Filter>Content</Filter>
     </ClInclude>
   </ItemGroup>
