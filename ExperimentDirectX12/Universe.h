@@ -1,7 +1,7 @@
 // Speed of light exists because the computer simulating our reality is not powerful enough to perform computation beyond that limit.
 #pragma once
 constexpr auto DEFAULT_DIMENSION = 256;
-constexpr auto DEFAULT_NUMBER_OF_PARTICLES = 6;
+constexpr auto DEFAULT_NUMBER_OF_PARTICLES = 7;
 
 class Universe
 {
@@ -61,6 +61,8 @@ Universe::Universe()
 		particleList[4].xCoordinate = coordinateToFieldIndex(0));
 	AddParticle(particleList[5].yCoordinate = coordinateToFieldIndex(2),
 		particleList[5].xCoordinate = coordinateToFieldIndex(2));
+	AddParticle(particleList[6].yCoordinate = coordinateToFieldIndex(4),
+		particleList[6].xCoordinate = coordinateToFieldIndex(4));
 }
 
 Universe::~Universe()
