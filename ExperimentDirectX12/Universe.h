@@ -15,16 +15,9 @@ class Universe
 		int yCoordinate;
 		int yInertia;
 		int yPositionChange;
+		bool isBarrier;
 	};
 
-	struct BarrierPoint
-	{
-		int xCoordinate;
-		int yCoordinate;
-	};
-
-	//OR JUST MAKE A PARTICLE REPRESENT A BARRIER POINT LIST BY IGNORING INERTIA COMPUTATION
-	BarrierPoint barrierPointList[DEFAULT_DIMENSION * 2 + (DEFAULT_DIMENSION - 2) * 2];
 	Particle* particleList;
 
 public:
@@ -36,8 +29,6 @@ public:
 	void UpdateParticlePosition();
 	float xFieldIndexToCoordinate(int);
 	float yFieldIndexToCoordinate(int);
-	float xBarrierFieldIndexToCoordinate(int);
-	float yBarrierFieldIndexToCoordinate(int);
 	size_t coordinateToFieldIndex(int);
 };
 
@@ -45,12 +36,20 @@ Universe::Universe()
 {
 	// Create cellArray array and particles
 	cellArray = new int[DEFAULT_DIMENSION][DEFAULT_DIMENSION]();
-	particleList = new Particle[DEFAULT_NUMBER_OF_PARTICLES]();
+	particleList = new Particle[((2 * DEFAULT_DIMENSION) - 1) + DEFAULT_NUMBER_OF_PARTICLES]();
 
 	// Create barrier along edge of cellArray so that particles don't
 	// go out of bound
+
 	for (int x = 0; x < DEFAULT_DIMENSION; ++x)
-		cellArray[barrierPointList[x].xCoordinate = 0][barrierPointList[x].yCoordinate = x] = cellArray[barrierPointList[DEFAULT_DIMENSION - 1].][x] = 1;
+		cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
+
+	//	Left and right edge
+	for (int y = 1; y < DEFAULT_DIMENSION - 1; ++y)
+		cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
+
+
+
 
 	//	Top and bottom edge
 	for (int x = 0; x < DEFAULT_DIMENSION; ++x)
@@ -213,16 +212,6 @@ inline float Universe::xFieldIndexToCoordinate(int particleListNumber)
 inline float Universe::yFieldIndexToCoordinate(int particleListNumber)
 {
 	return (particleList[particleListNumber].yCoordinate - ((float)DEFAULT_DIMENSION / 2.0f)) * 0.01f;
-}
-
-inline float Universe::xBarrierFieldIndexToCoordinate(int barrierPointNumber)
-{
-	return (barrierPointList[barrierPointNumber].xCoordinate - ((float)DEFAULT_DIMENSION / 2.0f)) * 0.01f;
-}
-
-inline float Universe::yBarrierFieldIndexToCoordinate(int barrierPointNumber)
-{
-	return (barrierPointList[barrierPointNumber].yCoordinate - ((float)DEFAULT_DIMENSION / 2.0f)) * 0.01f;
 }
 
 //	Convert from coordinate to index
