@@ -36,13 +36,20 @@ Universe::Universe()
 {
 	// Create cellArray array and particles
 	cellArray = new int[DEFAULT_DIMENSION][DEFAULT_DIMENSION]();
-	particleList = new Particle[((2 * DEFAULT_DIMENSION) - 1) + DEFAULT_NUMBER_OF_PARTICLES]();
+	particleList = new Particle[(2 * ((2 * DEFAULT_DIMENSION) - 1)) + DEFAULT_NUMBER_OF_PARTICLES]();
 
 	// Create barrier along edge of cellArray so that particles don't
 	// go out of bound
 
+	int pc = 0;
 	for (int x = 0; x < DEFAULT_DIMENSION; ++x)
-		cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
+	{
+		//cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
+		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(0),
+			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(x));
+		/*modulus*/AddParticle(particleList[0].yCoordinate = coordinateToFieldIndex(DEFAULT_DIMENSION - 1),
+			particleList[0].xCoordinate = coordinateToFieldIndex(x));
+	}
 
 	//	Left and right edge
 	for (int y = 1; y < DEFAULT_DIMENSION - 1; ++y)
