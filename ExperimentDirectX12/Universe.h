@@ -44,27 +44,35 @@ Universe::Universe()
 	int pc = 0;
 	for (int x = 0; x < DEFAULT_DIMENSION; ++x)
 	{
+		//Top bottom
 		//cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
 		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(0),
 			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(x));
-		/*modulus*/AddParticle(particleList[0].yCoordinate = coordinateToFieldIndex(DEFAULT_DIMENSION - 1),
-			particleList[0].xCoordinate = coordinateToFieldIndex(x));
+		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(DEFAULT_DIMENSION - 1),
+			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(x));
+		++pc;
 	}
 
 	//	Left and right edge
 	for (int y = 1; y < DEFAULT_DIMENSION - 1; ++y)
-		cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
-
+	{
+		//cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
+		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(y),
+			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(0));
+		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(y),
+			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(DEFAULT_DIMENSION));
+		++pc;
+	}
 
 
 
 	//	Top and bottom edge
-	for (int x = 0; x < DEFAULT_DIMENSION; ++x)
-		cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
+	//for (int x = 0; x < DEFAULT_DIMENSION; ++x)
+	//	cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
 
-	//	Left and right edge
-	for (int y = 1; y < DEFAULT_DIMENSION - 1; ++y)
-		cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
+	////	Left and right edge
+	//for (int y = 1; y < DEFAULT_DIMENSION - 1; ++y)
+	//	cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
 	
 	// Add particles
 	AddParticle(particleList[0].yCoordinate = coordinateToFieldIndex(0), 
