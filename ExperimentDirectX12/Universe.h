@@ -75,20 +75,20 @@ Universe::Universe()
 	//	cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
 	
 	// Add particles
-	AddParticle(particleList[0].yCoordinate = coordinateToFieldIndex(0), 
-		particleList[0].xCoordinate = coordinateToFieldIndex(-2));
-	AddParticle(particleList[1].yCoordinate = coordinateToFieldIndex(0), 
-		particleList[1].xCoordinate = coordinateToFieldIndex(0));
-	AddParticle(particleList[2].yCoordinate = coordinateToFieldIndex(0), 
-		particleList[2].xCoordinate = coordinateToFieldIndex(2));
-	AddParticle(particleList[3].yCoordinate = coordinateToFieldIndex(2),
-		particleList[3].xCoordinate = coordinateToFieldIndex(-2));
-	AddParticle(particleList[4].yCoordinate = coordinateToFieldIndex(2),
-		particleList[4].xCoordinate = coordinateToFieldIndex(0));
-	AddParticle(particleList[5].yCoordinate = coordinateToFieldIndex(2),
-		particleList[5].xCoordinate = coordinateToFieldIndex(2));
-	AddParticle(particleList[6].yCoordinate = coordinateToFieldIndex(4),
-		particleList[6].xCoordinate = coordinateToFieldIndex(4));
+	AddParticle(particleList[pc + 0].yCoordinate = coordinateToFieldIndex(0), 
+		particleList[pc + 0].xCoordinate = coordinateToFieldIndex(-2));
+	AddParticle(particleList[pc + 1].yCoordinate = coordinateToFieldIndex(0), 
+		particleList[pc + 1].xCoordinate = coordinateToFieldIndex(0));
+	AddParticle(particleList[pc + 2].yCoordinate = coordinateToFieldIndex(0), 
+		particleList[pc + 2].xCoordinate = coordinateToFieldIndex(2));
+	AddParticle(particleList[pc + 3].yCoordinate = coordinateToFieldIndex(2),
+		particleList[pc + 3].xCoordinate = coordinateToFieldIndex(-2));
+	AddParticle(particleList[pc + 4].yCoordinate = coordinateToFieldIndex(2),
+		particleList[pc + 4].xCoordinate = coordinateToFieldIndex(0));
+	AddParticle(particleList[pc + 5].yCoordinate = coordinateToFieldIndex(2),
+		particleList[pc + 5].xCoordinate = coordinateToFieldIndex(2));
+	AddParticle(particleList[pc + 6].yCoordinate = coordinateToFieldIndex(4),
+		particleList[pc + 6].xCoordinate = coordinateToFieldIndex(4));
 }
 
 Universe::~Universe()
