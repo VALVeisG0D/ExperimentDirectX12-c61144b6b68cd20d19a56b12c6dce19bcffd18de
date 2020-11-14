@@ -48,8 +48,11 @@ Universe::Universe()
 		//cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
 		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(0),
 			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(x));
+		particleList[pc * 2].isBarrier = true;
+
 		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(DEFAULT_DIMENSION - 1),
 			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(x));
+		particleList[2 * pc + 1].isBarrier = true;
 		++pc;
 	}
 
@@ -59,8 +62,11 @@ Universe::Universe()
 		//cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
 		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(y),
 			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(0));
+		particleList[pc * 2].isBarrier = true;
+
 		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(y),
 			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(DEFAULT_DIMENSION));
+		particleList[2 * pc + 1].isBarrier = true;
 		++pc;
 	}
 
@@ -77,18 +83,31 @@ Universe::Universe()
 	// Add particles
 	AddParticle(particleList[pc + 0].yCoordinate = coordinateToFieldIndex(0), 
 		particleList[pc + 0].xCoordinate = coordinateToFieldIndex(-2));
+	particleList[pc + 0].isBarrier = false;
+
 	AddParticle(particleList[pc + 1].yCoordinate = coordinateToFieldIndex(0), 
 		particleList[pc + 1].xCoordinate = coordinateToFieldIndex(0));
+	particleList[pc + 1].isBarrier = false;
+
 	AddParticle(particleList[pc + 2].yCoordinate = coordinateToFieldIndex(0), 
 		particleList[pc + 2].xCoordinate = coordinateToFieldIndex(2));
+	particleList[pc + 2].isBarrier = false;
+
 	AddParticle(particleList[pc + 3].yCoordinate = coordinateToFieldIndex(2),
 		particleList[pc + 3].xCoordinate = coordinateToFieldIndex(-2));
+	particleList[pc + 3].isBarrier = false;
+
 	AddParticle(particleList[pc + 4].yCoordinate = coordinateToFieldIndex(2),
 		particleList[pc + 4].xCoordinate = coordinateToFieldIndex(0));
+	particleList[pc + 4].isBarrier = false;
+
 	AddParticle(particleList[pc + 5].yCoordinate = coordinateToFieldIndex(2),
 		particleList[pc + 5].xCoordinate = coordinateToFieldIndex(2));
+	particleList[pc + 5].isBarrier = false;
+
 	AddParticle(particleList[pc + 6].yCoordinate = coordinateToFieldIndex(4),
 		particleList[pc + 6].xCoordinate = coordinateToFieldIndex(4));
+	particleList[pc + 6].isBarrier = false;
 }
 
 Universe::~Universe()
