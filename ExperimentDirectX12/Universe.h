@@ -153,6 +153,8 @@ inline void Universe::UpdateParticlePosition()
 	// 3 steps: calculate inertia, delete old position, add new position
 	for (size_t i = 0; i < DEFAULT_NUMBER_OF_PARTICLES; ++i)
 	{
+		if (!particleList[i].isBarrier)
+			continue;
 		//	Calculating the inertias on the diagonals
 		//	x-o-o
 		//	o-o-o
@@ -210,6 +212,9 @@ inline void Universe::UpdateParticlePosition()
 	// What if they are at the same position? Then try not to put particles in the same position
 	for (size_t i = 0; i < DEFAULT_NUMBER_OF_PARTICLES; ++i)
 	{
+		if (!particleList[i].isBarrier)
+			continue;
+
 		RemoveParticle(particleList[i].yCoordinate, particleList[i].xCoordinate);
 
 		//	Logic for moving the particle by 1 unit only if the magnitude of the change in position
