@@ -5,6 +5,7 @@ constexpr auto DEFAULT_NUMBER_OF_PARTICLES = 7;
 
 class Universe
 {
+	unsigned mDefaultDimension = DEFAULT_DIMENSION;
 	int (*cellArray)[DEFAULT_DIMENSION];
 
 	struct Particle
@@ -30,6 +31,8 @@ public:
 	float xFieldIndexToCoordinate(int);
 	float yFieldIndexToCoordinate(int);
 	size_t coordinateToFieldIndex(int);
+	
+	unsigned mDefaultNumParticle = (2 * ((2 * DEFAULT_DIMENSION) - 1)) + DEFAULT_NUMBER_OF_PARTICLES;
 };
 
 Universe::Universe()
