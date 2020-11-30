@@ -39,7 +39,7 @@ Universe::Universe()
 {
 	// Create cellArray array and particles
 	cellArray = new int[DEFAULT_DIMENSION][DEFAULT_DIMENSION]();
-	particleList = new Particle[(2 * ((2 * DEFAULT_DIMENSION) - 1)) + DEFAULT_NUMBER_OF_PARTICLES]();
+	particleList = new Particle[mDefaultNumParticle]();
 
 	// Create barrier along edge of cellArray so that particles don't
 	// go out of bound
@@ -154,7 +154,7 @@ inline void Universe::RemoveParticle(int yCoordinate, int xCoordinate)
 inline void Universe::UpdateParticlePosition()
 {
 	// 3 steps: calculate inertia, delete old position, add new position
-	for (size_t i = 0; i < DEFAULT_NUMBER_OF_PARTICLES; ++i)
+	for (size_t i = 0; i < mDefaultNumParticle; ++i)
 	{
 		if (!particleList[i].isBarrier)
 			continue;
@@ -213,7 +213,7 @@ inline void Universe::UpdateParticlePosition()
 
 	// Move the particle by removing from its old position and placing it at the new one
 	// What if they are at the same position? Then try not to put particles in the same position
-	for (size_t i = 0; i < DEFAULT_NUMBER_OF_PARTICLES; ++i)
+	for (size_t i = 0; i < mDefaultNumParticle; ++i)
 	{
 		if (!particleList[i].isBarrier)
 			continue;
