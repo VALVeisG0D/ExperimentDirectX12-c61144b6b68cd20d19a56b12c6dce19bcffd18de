@@ -32,7 +32,7 @@ public:
 	float yFieldIndexToCoordinate(int);
 	size_t coordinateToFieldIndex(int);
 	
-	unsigned mDefaultNumParticle = (2 * ((2 * DEFAULT_DIMENSION) - 1)) + DEFAULT_NUMBER_OF_PARTICLES;
+	int mDefaultNumParticle = (2 * ((2 * DEFAULT_DIMENSION) - 1)) + DEFAULT_NUMBER_OF_PARTICLES;
 };
 
 Universe::Universe()

@@ -121,8 +121,12 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 		DX::ThrowIfFailed(d3dDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, m_deviceResources->GetCommandAllocator(), m_pipelineState.Get(), IID_PPV_ARGS(&m_commandList)));
         NAME_D3D12_OBJECT(m_commandList);
 
+		VertexPositionColor* instanceData = new VertexPositionColor[field.mDefaultNumParticle];
+
+		for (int i = 0; i < field.mDefaultNumParticle; ++i)
+			instanceData[i] = { XMFLOAT3(field.xFieldIndexToCoordinate(i), field.yFieldIndexToCoordinate(i), 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f) };
 		// Instance data. Each instance data has a position and color
-		VertexPositionColor instanceData[] = 
+		/*VertexPositionColor instanceData[] = 
 		{
 			{XMFLOAT3(field.xFieldIndexToCoordinate(0), field.yFieldIndexToCoordinate(0), 0.0f), XMFLOAT3(0.0f, 1.0f, 1.0f)},
 			{XMFLOAT3(field.xFieldIndexToCoordinate(1), field.yFieldIndexToCoordinate(1), 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f)},
@@ -131,9 +135,9 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			{XMFLOAT3(field.xFieldIndexToCoordinate(4), field.yFieldIndexToCoordinate(4), 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f)},
 			{XMFLOAT3(field.xFieldIndexToCoordinate(5), field.yFieldIndexToCoordinate(5), 0.0f), XMFLOAT3(1.0f, 0.75f, 0.79f)},
 			{XMFLOAT3(field.xFieldIndexToCoordinate(6), field.yFieldIndexToCoordinate(6), 0.0f), XMFLOAT3(1.0f, 0.75f, 0.79f)}
-		};
+		};*/
 
-		const UINT instanceBufferSize = sizeof(instanceData);
+		const UINT instanceBufferSize = sizeof(*instanceData);
 
 		CD3DX12_HEAP_PROPERTIES defaultHeapProperties(D3D12_HEAP_TYPE_DEFAULT);
 		CD3DX12_HEAP_PROPERTIES uploadHeapProperties(D3D12_HEAP_TYPE_UPLOAD);
@@ -230,12 +234,13 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 		// Create instance buffer views.
 		m_instanceBufferView.BufferLocation = m_instanceBuffer->GetGPUVirtualAddress();
 		m_instanceBufferView.StrideInBytes = sizeof(VertexPositionColor);
-		m_instanceBufferView.SizeInBytes = sizeof(instanceData);
+		m_instanceBufferView.SizeInBytes = sizeof(*instanceData);
 
 		Rotate(0.0f);		
 
 		// Wait for the command list to finish executing; the vertex/index buffers need to be uploaded to the GPU before the upload resources go out of scope.
 		m_deviceResources->WaitForGpu();
+		delete[] instanceData;
 	});
 
 	createAssetsTask.then([this]() {
@@ -308,7 +313,11 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 			field.UpdateParticlePosition();
 
 			//Rotate(m_angle);
-			VertexPositionColor instanceData[] =
+			VertexPositionColor* instanceData = new VertexPositionColor[field.mDefaultNumParticle];
+
+			for (int i = 0; i < field.mDefaultNumParticle; ++i)
+				instanceData[i] = { XMFLOAT3(field.xFieldIndexToCoordinate(i), field.yFieldIndexToCoordinate(i), 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f) };
+			/*VertexPositionColor instanceData[] =
 			{
 				{ XMFLOAT3(field.xFieldIndexToCoordinate(0), field.yFieldIndexToCoordinate(0), 0.0f), XMFLOAT3(0.0f, 1.0f, 1.0f) },
 			{ XMFLOAT3(field.xFieldIndexToCoordinate(1), field.yFieldIndexToCoordinate(1), 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f) },
@@ -317,9 +326,9 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 			{ XMFLOAT3(field.xFieldIndexToCoordinate(4), field.yFieldIndexToCoordinate(4), 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f) },
 			{ XMFLOAT3(field.xFieldIndexToCoordinate(5), field.yFieldIndexToCoordinate(5), 0.0f), XMFLOAT3(1.0f, 0.75f, 0.79f) },
 			{XMFLOAT3(field.xFieldIndexToCoordinate(6), field.yFieldIndexToCoordinate(6), 0.0f), XMFLOAT3(1.0f, 0.75f, 0.79f)}
-			};
+			};*/
 
-			UpdateVertexBuffer(sizeof(instanceData), instanceData, instanceBufferUpload);
+			UpdateVertexBuffer(sizeof(*instanceData), instanceData, instanceBufferUpload);
 
 			DX::ThrowIfFailed(m_commandList->Close());
 
@@ -329,6 +338,7 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 
 			//MC Always wait when uploading to GPU
 			m_deviceResources->WaitForGpu();
+			delete[] instanceData;
 		}
 
 		// Update the constant buffer resource.
@@ -457,7 +467,7 @@ bool Sample3DSceneRenderer::Render()
 
 		m_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 		m_commandList->IASetVertexBuffers(0, 1, &m_instanceBufferView);
-		m_commandList->DrawInstanced(1, 7, 0, 0);
+		m_commandList->DrawInstanced(1, field.mDefaultNumParticle, 0, 0);
 
 		// Indicate that the render target will now be used to present when the command list is done executing.
 		CD3DX12_RESOURCE_BARRIER presentResourceBarrier =
