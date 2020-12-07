@@ -45,15 +45,15 @@ Universe::Universe()
 	// go out of bound
 
 	int pc = 0;
-	for (int x = 0; x < DEFAULT_DIMENSION; ++x)
+	for (int x = -125; x < 125; ++x)
 	{
 		//Top bottom
 		//cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
-		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(0),
+		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(-125),
 			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(x));
 		particleList[pc * 2].isBarrier = true;
 
-		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(DEFAULT_DIMENSION - 1),
+		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(125),
 			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(x));
 		particleList[2 * pc + 1].isBarrier = true;
 		++pc;
