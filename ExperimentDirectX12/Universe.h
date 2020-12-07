@@ -30,7 +30,7 @@ public:
 	void UpdateParticlePosition();
 	float xFieldIndexToCoordinate(int);
 	float yFieldIndexToCoordinate(int);
-	size_t coordinateToFieldIndex(int);
+	int coordinateToFieldIndex(int);
 	
 	int mDefaultNumParticle = (2 * ((2 * DEFAULT_DIMENSION) - 1)) + DEFAULT_NUMBER_OF_PARTICLES;
 };
@@ -257,7 +257,7 @@ inline float Universe::yFieldIndexToCoordinate(int particleListNumber)
 }
 
 //	Convert from coordinate to index
-inline size_t Universe::coordinateToFieldIndex(int coordinate)
+inline int Universe::coordinateToFieldIndex(int coordinate)
 {
-	return size_t(coordinate) + (DEFAULT_DIMENSION / 2);
+	return coordinate + (DEFAULT_DIMENSION / 2);
 }
