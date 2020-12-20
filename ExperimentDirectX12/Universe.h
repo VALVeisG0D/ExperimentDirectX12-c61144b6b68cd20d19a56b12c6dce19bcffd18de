@@ -60,15 +60,15 @@ Universe::Universe()
 	}
 
 	//	Left and right edge
-	for (int y = 1; y < DEFAULT_DIMENSION - 1; ++y)
+	for (int y = -124; y < 124; ++y)
 	{
 		//cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
 		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(y),
-			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(0));
+			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(-125));
 		particleList[pc * 2].isBarrier = true;
 
 		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(y),
-			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(DEFAULT_DIMENSION));
+			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(124));
 		particleList[2 * pc + 1].isBarrier = true;
 		++pc;
 	}
