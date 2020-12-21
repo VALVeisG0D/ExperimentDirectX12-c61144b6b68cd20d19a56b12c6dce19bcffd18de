@@ -137,7 +137,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			{XMFLOAT3(field.xFieldIndexToCoordinate(6), field.yFieldIndexToCoordinate(6), 0.0f), XMFLOAT3(1.0f, 0.75f, 0.79f)}
 		};*/
 
-		const UINT instanceBufferSize = sizeof(*instanceData);
+		const UINT instanceBufferSize = sizeof(*instanceData) * field.mDefaultNumParticle;
 
 		CD3DX12_HEAP_PROPERTIES defaultHeapProperties(D3D12_HEAP_TYPE_DEFAULT);
 		CD3DX12_HEAP_PROPERTIES uploadHeapProperties(D3D12_HEAP_TYPE_UPLOAD);
@@ -234,7 +234,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 		// Create instance buffer views.
 		m_instanceBufferView.BufferLocation = m_instanceBuffer->GetGPUVirtualAddress();
 		m_instanceBufferView.StrideInBytes = sizeof(VertexPositionColor);
-		m_instanceBufferView.SizeInBytes = sizeof(*instanceData);
+		m_instanceBufferView.SizeInBytes = sizeof(*instanceData) * field.mDefaultNumParticle;
 
 		Rotate(0.0f);		
 
@@ -328,7 +328,7 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 			{XMFLOAT3(field.xFieldIndexToCoordinate(6), field.yFieldIndexToCoordinate(6), 0.0f), XMFLOAT3(1.0f, 0.75f, 0.79f)}
 			};*/
 
-			UpdateVertexBuffer(sizeof(*instanceData), instanceData, instanceBufferUpload);
+			UpdateVertexBuffer(sizeof(*instanceData) * field.mDefaultNumParticle, instanceData, instanceBufferUpload);
 
 			DX::ThrowIfFailed(m_commandList->Close());
 

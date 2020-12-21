@@ -53,7 +53,7 @@ Universe::Universe()
 			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(x));
 		particleList[pc * 2].isBarrier = true;
 
-		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(125),
+		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(124),
 			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(x));
 		particleList[2 * pc + 1].isBarrier = true;
 		++pc;
@@ -68,7 +68,7 @@ Universe::Universe()
 		particleList[pc * 2].isBarrier = true;
 
 		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(y),
-			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(124));
+			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(125));
 		particleList[2 * pc + 1].isBarrier = true;
 		++pc;
 	}
