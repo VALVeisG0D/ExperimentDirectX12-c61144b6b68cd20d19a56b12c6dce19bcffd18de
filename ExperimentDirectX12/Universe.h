@@ -156,7 +156,7 @@ inline void Universe::UpdateParticlePosition()
 	// 3 steps: calculate inertia, delete old position, add new position
 	for (size_t i = 0; i < mDefaultNumParticle; ++i)
 	{
-		if (!particleList[i].isBarrier)
+		if (particleList[i].isBarrier)
 			continue;
 		//	Calculating the inertias on the diagonals
 		//	x-o-o
