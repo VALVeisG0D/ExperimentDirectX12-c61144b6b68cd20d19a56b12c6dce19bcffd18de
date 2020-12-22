@@ -215,7 +215,7 @@ inline void Universe::UpdateParticlePosition()
 	// What if they are at the same position? Then try not to put particles in the same position
 	for (size_t i = 0; i < mDefaultNumParticle; ++i)
 	{
-		if (!particleList[i].isBarrier)
+		if (particleList[i].isBarrier)
 			continue;
 
 		RemoveParticle(particleList[i].yCoordinate, particleList[i].xCoordinate);
