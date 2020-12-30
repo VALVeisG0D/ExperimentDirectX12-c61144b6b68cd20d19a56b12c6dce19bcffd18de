@@ -45,30 +45,31 @@ Universe::Universe()
 	// go out of bound
 
 	int pc = 0;
-	for (int x = -64; x < 64; ++x)
+	int barrierSize = 16;
+	for (int x = -barrierSize; x < barrierSize; ++x)
 	{
 		//Top bottom
 		//cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
-		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(-64),
+		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(-barrierSize),
 			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(x));
 		particleList[pc * 2].isBarrier = true;
 
-		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(64),
+		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(barrierSize),
 			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(x));
 		particleList[2 * pc + 1].isBarrier = true;
 		++pc;
 	}
 
 	//	Left and right edge
-	for (int y = -64; y < 64; ++y)
+	for (int y = -barrierSize; y < barrierSize; ++y)
 	{
 		//cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
 		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(y),
-			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(-64));
+			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(-barrierSize));
 		particleList[pc * 2].isBarrier = true;
 
 		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(y),
-			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(64));
+			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(barrierSize));
 		particleList[2 * pc + 1].isBarrier = true;
 		++pc;
 	}
