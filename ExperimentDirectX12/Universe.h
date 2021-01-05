@@ -45,20 +45,20 @@ Universe::Universe()
 	// go out of bound
 
 	int pc = 0;
-	int barrierSize = 16;
-	for (int x = -barrierSize; x < barrierSize; ++x)
-	{
-		//Top bottom
-		//cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
-		AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(-barrierSize),
-			particleList[pc * 2].xCoordinate = coordinateToFieldIndex(x));
-		particleList[pc * 2].isBarrier = true;
+	int barrierSize = 2;
+	//for (int x = -barrierSize; x < barrierSize; ++x)
+	//{
+	//	//Top bottom
+	//	//cellArray[0][x] = cellArray[DEFAULT_DIMENSION - 1][x] = 1;
+	//	AddParticle(particleList[pc * 2].yCoordinate = coordinateToFieldIndex(-barrierSize),
+	//		particleList[pc * 2].xCoordinate = coordinateToFieldIndex(x));
+	//	particleList[pc * 2].isBarrier = true;
 
-		AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(barrierSize),
-			particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(x));
-		particleList[2 * pc + 1].isBarrier = true;
-		++pc;
-	}
+	//	AddParticle(particleList[2 * pc + 1].yCoordinate = coordinateToFieldIndex(barrierSize),
+	//		particleList[2 * pc + 1].xCoordinate = coordinateToFieldIndex(x));
+	//	particleList[2 * pc + 1].isBarrier = true;
+	//	++pc;
+	//}
 
 	//	Left and right edge
 	for (int y = -barrierSize; y < barrierSize; ++y)
@@ -85,7 +85,7 @@ Universe::Universe()
 	//	cellArray[y][0] = cellArray[y][DEFAULT_DIMENSION - 1] = 1;
 	
 	// Add particles
-	AddParticle(particleList[pc + 0].yCoordinate = coordinateToFieldIndex(0), 
+	/*AddParticle(particleList[pc + 0].yCoordinate = coordinateToFieldIndex(0), 
 		particleList[pc + 0].xCoordinate = coordinateToFieldIndex(-2));
 	particleList[pc + 0].isBarrier = false;
 
@@ -111,7 +111,7 @@ Universe::Universe()
 
 	AddParticle(particleList[pc + 6].yCoordinate = coordinateToFieldIndex(4),
 		particleList[pc + 6].xCoordinate = coordinateToFieldIndex(4));
-	particleList[pc + 6].isBarrier = false;
+	particleList[pc + 6].isBarrier = false;*/
 }
 
 Universe::~Universe()
@@ -155,95 +155,95 @@ inline void Universe::RemoveParticle(int yCoordinate, int xCoordinate)
 inline void Universe::UpdateParticlePosition()
 {
 	// 3 steps: calculate inertia, delete old position, add new position
-	for (size_t i = 0; i < mDefaultNumParticle; ++i)
-	{
-		if (particleList[i].isBarrier)
-			continue;
-		//	Calculating the inertias on the diagonals
-		//	x-o-o
-		//	o-o-o
-		//	o-o-x
-		int tempInertiaDiag = 
-			cellArray[particleList[i].yCoordinate + 1][particleList[i].xCoordinate - 1] - 
-			cellArray[particleList[i].yCoordinate - 1][particleList[i].xCoordinate + 1];
+	//for (size_t i = 0; i < mDefaultNumParticle; ++i)
+	//{
+	//	if (particleList[i].isBarrier)
+	//		continue;
+	//	//	Calculating the inertias on the diagonals
+	//	//	x-o-o
+	//	//	o-o-o
+	//	//	o-o-x
+	//	int tempInertiaDiag = 
+	//		cellArray[particleList[i].yCoordinate + 1][particleList[i].xCoordinate - 1] - 
+	//		cellArray[particleList[i].yCoordinate - 1][particleList[i].xCoordinate + 1];
 
-		particleList[i].xInertia += tempInertiaDiag;
-		particleList[i].yInertia -= tempInertiaDiag;
+	//	particleList[i].xInertia += tempInertiaDiag;
+	//	particleList[i].yInertia -= tempInertiaDiag;
 
-		//	o-o-x
-		//	o-o-o
-		//	x-o-o
-		tempInertiaDiag = 
-			cellArray[particleList[i].yCoordinate - 1][particleList[i].xCoordinate - 1] - 
-			cellArray[particleList[i].yCoordinate + 1][particleList[i].xCoordinate + 1];
+	//	//	o-o-x
+	//	//	o-o-o
+	//	//	x-o-o
+	//	tempInertiaDiag = 
+	//		cellArray[particleList[i].yCoordinate - 1][particleList[i].xCoordinate - 1] - 
+	//		cellArray[particleList[i].yCoordinate + 1][particleList[i].xCoordinate + 1];
 
-		particleList[i].xInertia += tempInertiaDiag;
-		particleList[i].yInertia += tempInertiaDiag;
+	//	particleList[i].xInertia += tempInertiaDiag;
+	//	particleList[i].yInertia += tempInertiaDiag;
 
-		//	Calculating the inertia directly above, below, and to the side of the particle
-		//	o-o-o
-		//	x-o-x
-		//	o-o-o
-		particleList[i].xInertia +=
-			cellArray[particleList[i].yCoordinate][particleList[i].xCoordinate - 1] - 
-			cellArray[particleList[i].yCoordinate][particleList[i].xCoordinate + 1];
-		
-		//	o-x-o
-		//	o-o-o
-		//	o-x-o
-		particleList[i].yInertia += 
-			cellArray[particleList[i].yCoordinate - 1][particleList[i].xCoordinate] - 
-			cellArray[particleList[i].yCoordinate + 1][particleList[i].xCoordinate];
+	//	//	Calculating the inertia directly above, below, and to the side of the particle
+	//	//	o-o-o
+	//	//	x-o-x
+	//	//	o-o-o
+	//	particleList[i].xInertia +=
+	//		cellArray[particleList[i].yCoordinate][particleList[i].xCoordinate - 1] - 
+	//		cellArray[particleList[i].yCoordinate][particleList[i].xCoordinate + 1];
+	//	
+	//	//	o-x-o
+	//	//	o-o-o
+	//	//	o-x-o
+	//	particleList[i].yInertia += 
+	//		cellArray[particleList[i].yCoordinate - 1][particleList[i].xCoordinate] - 
+	//		cellArray[particleList[i].yCoordinate + 1][particleList[i].xCoordinate];
 
-		particleList[i].xInertia = (3 * ((0xffe000 >> (particleList[i].xInertia + 10)) & 1))
-			+ (particleList[i].xInertia * ((0x01f80 >> (particleList[i].xInertia + 10)) & 1))
-			+ (-3 * ((0x0007f >> (particleList[i].xInertia + 10)) & 1));
-		particleList[i].yInertia = (3 * ((0xffe000 >> (particleList[i].yInertia + 10)) & 1))
-			+ (particleList[i].yInertia * ((0x01f80 >> (particleList[i].yInertia + 10)) & 1))
-			+ (-3 * ((0x0007f >> (particleList[i].yInertia + 10)) & 1));
+	//	particleList[i].xInertia = (3 * ((0xffe000 >> (particleList[i].xInertia + 10)) & 1))
+	//		+ (particleList[i].xInertia * ((0x01f80 >> (particleList[i].xInertia + 10)) & 1))
+	//		+ (-3 * ((0x0007f >> (particleList[i].xInertia + 10)) & 1));
+	//	particleList[i].yInertia = (3 * ((0xffe000 >> (particleList[i].yInertia + 10)) & 1))
+	//		+ (particleList[i].yInertia * ((0x01f80 >> (particleList[i].yInertia + 10)) & 1))
+	//		+ (-3 * ((0x0007f >> (particleList[i].yInertia + 10)) & 1));
 
-		//	Calculating the magnitude of the change in position due to inertia
-		//	Will be used to determine if particle moves by 1 unit
-		particleList[i].xPositionChange += particleList[i].xInertia;
-		particleList[i].yPositionChange += particleList[i].yInertia;
-	}
+	//	//	Calculating the magnitude of the change in position due to inertia
+	//	//	Will be used to determine if particle moves by 1 unit
+	//	particleList[i].xPositionChange += particleList[i].xInertia;
+	//	particleList[i].yPositionChange += particleList[i].yInertia;
+	//}
 
-	int negativePart = 0;
-	int positivePart = 0;
-	int offset = 0;
+	//int negativePart = 0;
+	//int positivePart = 0;
+	//int offset = 0;
 
-	// Move the particle by removing from its old position and placing it at the new one
-	// What if they are at the same position? Then try not to put particles in the same position
-	for (size_t i = 0; i < mDefaultNumParticle; ++i)
-	{
-		if (particleList[i].isBarrier)
-			continue;
+	//// Move the particle by removing from its old position and placing it at the new one
+	//// What if they are at the same position? Then try not to put particles in the same position
+	//for (size_t i = 0; i < mDefaultNumParticle; ++i)
+	//{
+	//	if (particleList[i].isBarrier)
+	//		continue;
 
-		RemoveParticle(particleList[i].yCoordinate, particleList[i].xCoordinate);
+	//	RemoveParticle(particleList[i].yCoordinate, particleList[i].xCoordinate);
 
-		//	Logic for moving the particle by 1 unit only if the magnitude of the change in position
-		//	is large enough
-		//	Range of the offset is from 3 to 9 to prevent having a negative offset for bit shifting
-		//	1111 1110 0000 0000 & 0000 0000 0000 0001 = 1 if offset is 9 or more (move in positive
-		//		direction by 1 unit
-		//	0000 0000 0000 1111 & 0000 0000 0000 0001 = 1 if offset is 3 or less (move in negative
-		//		direction by 1 unit
-		offset = particleList[i].xPositionChange + 6;
-		positivePart = (0xfe00 >> offset) & 1;		
-		negativePart = (0x000f >> offset) & 1;		
-		particleList[i].xCoordinate += positivePart - negativePart;
-		particleList[i].xPositionChange += 
-			(negativePart + positivePart) * -particleList[i].xPositionChange;
+	//	//	Logic for moving the particle by 1 unit only if the magnitude of the change in position
+	//	//	is large enough
+	//	//	Range of the offset is from 3 to 9 to prevent having a negative offset for bit shifting
+	//	//	1111 1110 0000 0000 & 0000 0000 0000 0001 = 1 if offset is 9 or more (move in positive
+	//	//		direction by 1 unit
+	//	//	0000 0000 0000 1111 & 0000 0000 0000 0001 = 1 if offset is 3 or less (move in negative
+	//	//		direction by 1 unit
+	//	offset = particleList[i].xPositionChange + 6;
+	//	positivePart = (0xfe00 >> offset) & 1;		
+	//	negativePart = (0x000f >> offset) & 1;		
+	//	particleList[i].xCoordinate += positivePart - negativePart;
+	//	particleList[i].xPositionChange += 
+	//		(negativePart + positivePart) * -particleList[i].xPositionChange;
 
-		offset = particleList[i].yPositionChange + 6;
-		positivePart = (0xfe00 >> offset) & 1;
-		negativePart = (0x000f >> offset) & 1;
-		particleList[i].yCoordinate += positivePart - negativePart;
-		particleList[i].yPositionChange += 
-			(negativePart + positivePart) * -particleList[i].yPositionChange;
+	//	offset = particleList[i].yPositionChange + 6;
+	//	positivePart = (0xfe00 >> offset) & 1;
+	//	negativePart = (0x000f >> offset) & 1;
+	//	particleList[i].yCoordinate += positivePart - negativePart;
+	//	particleList[i].yPositionChange += 
+	//		(negativePart + positivePart) * -particleList[i].yPositionChange;
 
-		AddParticle(particleList[i].yCoordinate, particleList[i].xCoordinate);
-	}
+	//	AddParticle(particleList[i].yCoordinate, particleList[i].xCoordinate);
+	//}
 }
 
 //	Convert from index to coordinate
